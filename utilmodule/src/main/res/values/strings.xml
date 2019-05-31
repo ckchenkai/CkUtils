@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">utilModule</string>
+
+    <string name="photo_album">Photo album</string>
+    <string name="take_photos">Take photos</string>
+    <string name="shooting_video">Shooting video</string>
+    <string name="select_a_video_from_the_album">Select a video from the album</string>
+</resources>

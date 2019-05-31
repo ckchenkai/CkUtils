@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">utilModule</string>
+
+    <string name="take_photos">拍照</string>
+    <string name="photo_album">相册</string>
+    <string name="shooting_video">拍摄视频</string>
+    <string name="select_a_video_from_the_album">从相册中选择视频</string>
+</resources>
