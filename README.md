@@ -11,3 +11,6 @@
             }
         };
 ```
+
+  
+  compile 'com.ck.project:CkUtils:1.0.0'
