@@ -2,14 +2,20 @@ package com.ck.project.utilmodule.wedgit;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,8 +31,10 @@ import com.ck.project.utilmodule.utils.DisplayUtil;
  */
 
 public class CustomDialog extends Dialog {
+    private RelativeLayout container;
     private TextView dialogContent;
-    private Button dialogCommit,dialogCancle;
+    private Button dialogCommit, dialogCancle;
+
     public CustomDialog(@NonNull Context context) {
         super(context);
     }
@@ -39,77 +47,182 @@ public class CustomDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_custom);
-        dialogContent = findViewById(R.id.dialog_content);
-        dialogCommit = findViewById(R.id.dialog_commit);
-        dialogCancle = findViewById(R.id.dialog_cancle);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    }
-
-    public void setDialogContent(String content){
-        if (content != null) {
+    public CustomDialog setContent(String content) {
+        if (dialogContent != null) {
             dialogContent.setText(content);
         }
+        return this;
     }
 
-    public void setOnCommitClickListener(OnCommitClickListener commitClickListener){
-        setOnCommitClickListener(null,null,commitClickListener,null);
-    }
+    public static class Builder {
+        private Context mContext;
+        private String mContent;
+        private String mTextCommit;
+        private String mTextCancle;
+        private OnCommitClickListener mOnCommitClickListener;
+        private OnCancleClickListener mOnCancleClickListener;
+        private OnKeyBackListener mOnKeyBackListener;
+        private boolean isCancleable = true;
+        private boolean isHideCancleBtn;
+        private double mWidthRadio;
 
-    public void setOnCommitClickListener(String commit,String cancle,OnCommitClickListener commitClickListener){
-        setOnCommitClickListener(commit,cancle,commitClickListener,null);
-    }
-
-    public void setOnCommitClickListener(String commit, String cancle, final OnCommitClickListener commitClickListener, final OnCancleClickListener cancleClickListener){
-        if(!TextUtils.isEmpty(commit)){
-            dialogCommit.setText(commit);
+        public Builder(Context mContext) {
+            this.mContext = mContext;
         }
-        if(!TextUtils.isEmpty(cancle)){
-            dialogCancle.setText(cancle);
+
+        /**
+         * 设置内容
+         *
+         * @param content
+         * @return
+         */
+        public Builder setContent(String content) {
+            mContent = content;
+            return this;
         }
-        dialogCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (commitClickListener != null) {
-                    commitClickListener.onCommitClick();
-                }
+
+        /**
+         * 设置确定按钮监听
+         *
+         * @param mOnCommitClickListener
+         * @return
+         */
+        public Builder setCommitListener(OnCommitClickListener mOnCommitClickListener) {
+            this.mOnCommitClickListener = mOnCommitClickListener;
+            return this;
+        }
+
+        /**
+         * 设置取消按钮监听
+         *
+         * @param mOnCancleClickListener
+         * @return
+         */
+        public Builder setCancleListener(OnCancleClickListener mOnCancleClickListener) {
+            this.mOnCancleClickListener = mOnCancleClickListener;
+            return this;
+        }
+
+        /**
+         * 设置确定按钮监听+文字
+         *
+         * @param mTextCommit
+         * @param mOnCommitClickListener
+         * @return
+         */
+        public Builder setCommitListener(String mTextCommit, OnCommitClickListener mOnCommitClickListener) {
+            this.mTextCommit = mTextCommit;
+            this.mOnCommitClickListener = mOnCommitClickListener;
+            return this;
+        }
+
+        /**
+         * 设置取消按钮监听+文字
+         *
+         * @param mOnCancleClickListener
+         * @return
+         */
+        public Builder setCancleListener(String mTextCancle, OnCancleClickListener mOnCancleClickListener) {
+            this.mTextCancle = mTextCancle;
+            this.mOnCancleClickListener = mOnCancleClickListener;
+            return this;
+        }
+
+        /**
+         * 设置返回键监听
+         *
+         * @param mOnKeyBackListener
+         * @return
+         */
+        public Builder setOnKeyBackListener(OnKeyBackListener mOnKeyBackListener) {
+            this.mOnKeyBackListener = mOnKeyBackListener;
+            return this;
+        }
+
+        /**
+         * 设置点击外部是否可消失
+         *
+         * @param isCancleable
+         * @return
+         */
+        public Builder setCancleable(boolean isCancleable) {
+            this.isCancleable = isCancleable;
+            return this;
+        }
+
+        /**
+         * 设置点击是否隐藏取消按钮
+         *
+         * @param isHideCancleBtn
+         * @return
+         */
+        public Builder setHideCancleBtn(boolean isHideCancleBtn) {
+            this.isHideCancleBtn = isHideCancleBtn;
+            return this;
+        }
+
+        public Builder setWidthRadio(double mWidthRadio){
+            this.mWidthRadio = mWidthRadio;
+            return this;
+        }
+
+        public CustomDialog create() {
+            CustomDialog dialog = new CustomDialog(mContext, R.style.custom_dialog);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.dialog_custom, null);
+            dialog.container = view.findViewById(R.id.container);
+            dialog.dialogContent = view.findViewById(R.id.dialog_content);
+            dialog.dialogCommit = view.findViewById(R.id.dialog_commit);
+            dialog.dialogCancle = view.findViewById(R.id.dialog_cancle);
+            dialog.dialogContent.setText(mContent);
+            if (mTextCommit != null) {
+                dialog.setContent(mTextCommit);
             }
-        });
-        dialogCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cancleClickListener != null) {
-                    cancleClickListener.onCancleClick();
-                }
-                dismiss();
+            if (mTextCancle != null) {
+                dialog.dialogCancle.setText(mTextCancle);
             }
-        });
+            dialog.dialogCommit.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (mOnCommitClickListener != null) {
+                    mOnCommitClickListener.onCommit();
+                }
+            });
+            dialog.dialogCancle.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (mOnCancleClickListener != null) {
+                    mOnCancleClickListener.onCancle();
+                }
+            });
+            dialog.setContentView(view);
+            dialog.setCancelable(isCancleable);
+            dialog.setCanceledOnTouchOutside(isCancleable);
+            dialog.dialogCancle.setVisibility(isHideCancleBtn ? View.INVISIBLE : View.VISIBLE);
+            if (mOnKeyBackListener != null) {
+                dialog.setOnKeyListener((dialog1, keyCode, event) -> {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                        mOnKeyBackListener.onKeyBack(dialog);
+                    }
+                    return false;
+                });
+            }
+            if(mWidthRadio>0&&mWidthRadio<1){
+                WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+                params.width = (int) (DisplayUtil.getScreenWidth(mContext)*mWidthRadio);
+                dialog.getWindow().setAttributes(params);
+            }
+            return dialog;
+        }
     }
 
-    @Override
-    public void show() {
-        super.show();
-        //设置大小
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.width = (int) ((int) DisplayUtil.getScreenParams().first*0.7);
-        getWindow().setAttributes(params);
+    public interface OnCommitClickListener {
+        void onCommit();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        dismiss();
+    public interface OnCancleClickListener {
+        void onCancle();
     }
 
-    public interface OnCommitClickListener{
-        void onCommitClick();
-    }
-
-    public interface OnCancleClickListener{
-        void onCancleClick();
+    public interface OnKeyBackListener {
+        void onKeyBack(CustomDialog view);
     }
 }

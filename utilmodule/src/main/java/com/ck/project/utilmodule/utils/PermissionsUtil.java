@@ -50,13 +50,12 @@ public class PermissionsUtil {
         if(requestCode==PERMISSION_REQUESTCODE){
             if(!verifyPermissions(grantResults)){
                 //提示无权限
-                CustomDialog dialog  = new CustomDialog(context);
-                dialog.setOnCommitClickListener("去系统里设置权限", "取消", new CustomDialog.OnCommitClickListener() {
-                    @Override
-                    public void onCommitClick() {
+                CustomDialog dialog = new CustomDialog.Builder(context)
+                        .setContent("去系统里设置权限")
+                        .setCommitListener(() -> {
 
-                    }
-                });
+                        })
+                        .create();
                 dialog.show();
             }else{
                 //已有权限

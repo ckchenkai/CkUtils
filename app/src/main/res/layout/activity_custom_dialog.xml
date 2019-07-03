@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomDialogActivity"
+    android:padding="20dp"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/rg_hide_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/rb_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隐藏取消按钮"/>
+        <RadioButton
+            android:id="@+id/rb_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示取消按钮"
+            android:layout_marginLeft="15dp"
+            android:checked="true"/>
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_click_outside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/rb_outside_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击外部消失"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/rb_outside_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击外部不消失"
+            android:layout_marginLeft="15dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_keyback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/rb_keback_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不监听返回按钮"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/rb_keyback_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="监听返回按钮"
+            android:layout_marginLeft="15dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_width"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/rb_width_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不设置宽度"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/rb_width_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置宽度为屏幕宽度的0.5"
+            android:layout_marginLeft="15dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bt_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示dialog"/>
+</LinearLayout>

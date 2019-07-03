@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.ckutils"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,6 +17,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+}
+
+repositories {
+    flatDir { dirs 'libs' }
+    // 本地仓库，同步荟学相关组件
+    maven { url "file://$rootDir/repo" }
 }
 
 dependencies {
@@ -27,4 +47,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(path: ':utilmodule')
     implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    // 荟学（智能家居演示相关组件）
+    api "com.ohosure:component:1.0"
 }
