@@ -12,5 +12,21 @@
         };
 ```
 
+
+#### 使用封装的CustomDialog:
+```java
+ CustomDialog dialog = new CustomDialog.Builder(this)
+                    .setCancleable(isCancleable)
+                    .setHideCancleBtn(isHideCancleBtn)
+                    .setContent("这是内容")
+                    .setOnKeyBackListener(isSetKeyback ? onKeyListener() : null)
+                    .setWidthRadio(isSetWidthRadio ? 0.5 : 0)
+                    .setCommitListener(()->ToastUtils.getInstance().showToast(this,"确定"))
+                    .setCancleListener(()->ToastUtils.getInstance().showToast(this,"取消"))
+                    .create();
+            dialog.show()
+```
+
+
   
   compile 'com.ck.project:CkUtils:1.0.0'
