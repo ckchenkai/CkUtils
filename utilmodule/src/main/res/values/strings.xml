@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">utilModule</string>
 
     <string name="photo_album">Photo album</string>
     <string name="take_photos">Take photos</string>

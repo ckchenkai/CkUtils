@@ -12,7 +12,7 @@ import com.ck.project.utilmodule.BuildConfig;
  */
 
 public class ULog {
-    private static boolean DEBUG = BuildConfig.DEBUG;
+    public static boolean DEBUG;
     private static final String TAG = "ck";
 
     public static void v(String tag, String msg) {

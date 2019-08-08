@@ -30,7 +30,7 @@ public class PermissionsUtil {
     }
 
     public void needPermissions(Activity mContext, String [] permissions){
-        if(ApiVersionUtil.isMarshmallow()){
+        if(ApiVersionUtil.isBelowMarshmallow()){
             //不需权限
             return;
         }

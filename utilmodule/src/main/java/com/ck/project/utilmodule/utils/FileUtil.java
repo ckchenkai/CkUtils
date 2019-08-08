@@ -12,7 +12,6 @@ import android.provider.MediaStore;
 
 import com.ck.project.utilmodule.AppConfig;
 import com.ck.project.utilmodule.gson.GsonHelper;
-import com.silencedut.taskscheduler.TaskScheduler;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -120,31 +119,6 @@ public class FileUtil {
         return new File(getAppCacheFolder(), fileId);
     }
 
-    /**
-     * @param fileId The fileId to write to Disk.
-     */
-    public static void writeToFile(String fileId, final Object fileObj) {
-        if (fileObj == null) {
-            return;
-        }
-        final File file = buildFile(fileId);
-        if (exists(file)) {
-            TaskScheduler.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String content = fileObj.getClass().equals(String.class)
-                                ? fileObj.toString() : GsonHelper.toJson(fileObj);
-                        FileWriter writer = new FileWriter(file);
-                        writer.write(content);
-                        writer.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
 
     /**
      * 同步读取一个文件，will be block
@@ -187,26 +161,6 @@ public class FileUtil {
         return file.exists();
     }
 
-    /**
-     * Warning: Deletes the content of a directory.
-     * This is an I/O operation and this method executes in the main thread, so it is recommended to
-     * perform the operation using another thread.
-     *
-     * @param directory The directory which its content will be deleted.
-     */
-    public static void clearDirectory(final File directory) {
-        TaskScheduler.execute(new Runnable() {
-            @Override
-            public void run() {
-                boolean result = false;
-                if (directory.exists()) {
-                    for (File file : directory.listFiles()) {
-                        result = file.delete();
-                    }
-                }
-            }
-        });
-    }
 
     public static String assetFile2String(String fileName, Context context) {
         StringBuilder result = new StringBuilder();

@@ -12,7 +12,7 @@ public class ApiVersionUtil {
      * 6.0以上版本号
      * @return
      */
-    public static boolean isMarshmallow(){
-        return Build.VERSION.SDK_INT>=Build.VERSION_CODES.M;
+    public static boolean isBelowMarshmallow(){
+        return Build.VERSION.SDK_INT<Build.VERSION_CODES.M;
     }
 }
