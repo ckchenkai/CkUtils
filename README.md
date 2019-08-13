@@ -29,4 +29,4 @@
 
 
   
-  compile 'com.ck.project:CkUtils:1.1'
+  implementation 'com.ck.project:CkUtils:1.1.2'
