@@ -23,7 +23,7 @@ public class SPUtil {
 
     }
 
-    private static void init(Context context) {
+    public static void init(Context context) {
         if (editor == null) {
             sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
             editor = sp.edit();
