@@ -1,11 +1,9 @@
 package com.ck.project.utilmodule.base.recycleradapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.collection.SparseArrayCompat;
@@ -138,7 +136,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
 //                view.setVisibility(View.GONE);
 //            }else{
 //                view.setVisibility(View.VISIBLE);
-//                GlideHelper.getInstance().loadRound(mContext,picPath, radius,(ImageView) view);
+//                GlideHelper.getInstance().loadRound(mContext,picPath, 0,radius,(ImageView) view);
 //            }
 //        }
 //    }

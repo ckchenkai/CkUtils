@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 
-import com.ck.project.utilmodule.AppConfig;
 import com.ck.project.utilmodule.gson.GsonHelper;
 
 import java.io.BufferedReader;
@@ -20,7 +19,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,8 +54,8 @@ public class FileUtil {
         return cacheDir.getPath();
     }
 
-    public static String getAppCacheFolder() {
-        File dir = AppConfig.getContext().getExternalCacheDir();
+    public static String getAppCacheFolder(Context context) {
+        File dir = context.getExternalCacheDir();
         return dir.getAbsolutePath();
     }
 
@@ -102,8 +100,8 @@ public class FileUtil {
      * @param fileId
      * @return
      */
-    public static File buildCacheFile(String fileId) {
-        File file = new File(getAppCacheFolder(), fileId);
+    public static File buildCacheFile(Context context,String fileId) {
+        File file = new File(getAppCacheFolder(context), fileId);
 
         if (!file.exists()) {
             try {
@@ -115,8 +113,8 @@ public class FileUtil {
         return file;
     }
 
-    public static File getCacheFile(String fileId) {
-        return new File(getAppCacheFolder(), fileId);
+    public static File getCacheFile(Context context,String fileId) {
+        return new File(getAppCacheFolder(context), fileId);
     }
 
 
@@ -303,8 +301,8 @@ public class FileUtil {
      *
      * @return
      */
-    public static String getPicSelCachePath() {
-        File cacheDir = new File(getAppCacheFolder() + File.separator + "compress_pic");
+    public static String getPicSelCachePath(Context context) {
+        File cacheDir = new File(getAppCacheFolder(context) + File.separator + "compress_pic");
         if (!cacheDir.exists()) {
             cacheDir.mkdir();
         }
