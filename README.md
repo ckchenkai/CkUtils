@@ -29,20 +29,17 @@
 
 
 
-  ######  Add it in your root build.gradle at the end of repositories:
-    ```groovy
-    	allprojects {
-    		repositories {
-    			...
-    			maven { url 'https://www.jitpack.io' }
-    		}
-    	}
-    ```
+ ######  Add it in your root build.gradle at the end of repositories:
 
-  ###### Add the dependency
-    ```groovy
-    	dependencies {
-    	        implementation 'com.github.ckchenkai:CkUtils:1.0'
-    	}
-    Share this release:
-    ```
+   	allprojects {
+   		repositories {
+   			...
+   			maven { url 'https://www.jitpack.io' }
+   		}
+   	}
+
+
+ ###### Add the dependency
+   	dependencies {
+   	        implementation 'com.github.ckchenkai:CkUtils:1.0'
+   	}
