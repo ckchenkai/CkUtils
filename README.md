@@ -28,5 +28,21 @@
 ```
 
 
-  
-  implementation 'com.ck.project:CkUtils:1.1.2'
+
+  ######  Add it in your root build.gradle at the end of repositories:
+    ```groovy
+    	allprojects {
+    		repositories {
+    			...
+    			maven { url 'https://www.jitpack.io' }
+    		}
+    	}
+    ```
+
+  ###### Add the dependency
+    ```groovy
+    	dependencies {
+    	        implementation 'com.github.ckchenkai:CkUtils:1.0'
+    	}
+    Share this release:
+    ```
